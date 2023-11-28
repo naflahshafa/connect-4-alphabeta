@@ -42,17 +42,16 @@ CanvasBoard.prototype.initBoard = function () {
 	board.stage.name = "stage";
 	board.stage.enableMouseOver(20);
 	
-	//Draw board
+	// Draw board
 	var boardBackground = board.stage.addChild(new createjs.Shape()).set({ name: "background", x: 0, y: 0 });
-	boardBackground.graphics.beginFill("#0277BD").beginStroke("black").drawRect(60, 10, 380, 330);
-	boardBackground.graphics.beginFill("#01579B").beginStroke("black").drawRect(30, 330, 440, 20);
-
+	boardBackground.graphics.beginFill("#124559").beginStroke("#124559").drawRect(60, 10, 570, 495); // Increase the width and height by 1.5 times
+	boardBackground.graphics.beginFill("#124559").beginStroke("#124559").drawRect(30, 495, 660, 30); // Increase the width by 1.5 times
 	//Draw checkers
 	board.checkerSpaceContainer = board.stage.addChild(new createjs.Container()).set({ name: "board" });
 	_.forEach(board.matrixBoard, function (row, rowIndex) {
 		_.forEach(row, function (column, columnIndex) {
-			var checkerSpace = board.checkerSpaceContainer.addChild(new createjs.Shape()).set({ name: "cs-" + rowIndex + columnIndex, x: 100 + (50 * columnIndex), y: 50 + (50 * rowIndex) });
-			checkerSpace.graphics.beginFill("#FFFF").beginStroke("grey").drawCircle(0, 0, 23);
+			var checkerSpace = board.checkerSpaceContainer.addChild(new createjs.Shape()).set({ name: "cs-" + rowIndex + columnIndex, x: 120 + (75 * columnIndex), y: 65 + (75 * rowIndex) }); // Increase the x and y coordinates by 1.5 times
+			checkerSpace.graphics.beginFill("#436470").beginStroke("#124559").drawCircle(0, 0, 34.5); // Increase the radius by 1.5 times
 			checkerSpace.cursor = "pointer";
 			checkerSpace.addEventListener("click", (board.currentgame.placeHumanMove).bind(board.currentgame) );
 		});
@@ -71,7 +70,7 @@ CanvasBoard.prototype.resetBoard = function () {
 	_.forEach(board.matrixBoard, function (row, rowIndex) {
 		_.forEach(row, function (column, columnIndex) {
 			var checkerSpace = board.checkerSpaceContainer.getChildByName("cs-" + rowIndex + columnIndex);
-			checkerSpace.graphics.beginFill("#FFFF").beginStroke("grey").drawCircle(0, 0, 23);
+			checkerSpace.graphics.beginFill("#436470").beginStroke("#124559").drawCircle(0, 0, 34.5);
 			board.matrixBoard[rowIndex][columnIndex] = 0 ;
 		});
 	});
@@ -83,9 +82,9 @@ CanvasBoard.prototype.refreshBoard = function () {
 		_.forEach(row, function (column, columnIndex) {
 			var checkerSpace = board.checkerSpaceContainer.getChildByName("cs-" + rowIndex + columnIndex);
 			if(board.matrixBoard[rowIndex][columnIndex] == Config.HUMAN_PLAYER){
-				checkerSpace.graphics.beginFill("#f70202").beginStroke("grey").drawCircle(0, 0, 23);
+				checkerSpace.graphics.beginFill("#f70202").beginStroke("grey").drawCircle(0, 0, 34.5);
 			}else if(board.matrixBoard[rowIndex][columnIndex] == Config.COMPUTER_AI){
-				checkerSpace.graphics.beginFill("#ffc107").beginStroke("grey").drawCircle(0, 0, 23);
+				checkerSpace.graphics.beginFill("#ffc107").beginStroke("grey").drawCircle(0, 0, 34.5);
 			}	
 		});
 	});
